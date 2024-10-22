@@ -19,9 +19,10 @@ class PetsupplyView extends StatelessWidget {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
-            backgroundColor: Palette.mainWhite,
+            backgroundColor: Palette.fourth,
             appBar: AppBar(
-              backgroundColor: Palette.blue3,
+              backgroundColor: Palette.first,
+              leading: Icon(null),
               centerTitle: true,
               title: Text(
                 "Get the best Pet supplies",
@@ -32,11 +33,13 @@ class PetsupplyView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      viewModel.tocart();
+                    },
                     icon: Icon(
                       Icons.medical_services,
                       size: 30,
-                      color: Palette.mainWhite,
+                      color: Palette.green1,
                     )),
                 SizedBox(
                   width: 5,

@@ -11,12 +11,12 @@ class ProfileViewmodel extends BaseViewModel {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Palette.green1,
         content: Text(
-          "User Signed Out Successfully",
+          "Logged Out Successfully",
           style: TextStyle(
               color: Palette.mainblack,
               fontWeight: FontWeight.bold,
               fontSize: 18),
         )));
-    navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+    navigationService.pushNamedAndRemoveUntil(Routes.boardingscreenView);
   }
 }

@@ -24,18 +24,18 @@ class RegistrationViewmodel extends BaseViewModel {
           email: email,
           password: password,
         );
-        //navigate to login pge
+        //navigate to HomePage
         if (credential.user?.uid != null) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Palette.green1,
               content: Text(
-                "User Signed Up Successfully",
+                "Signed Up Successfully",
                 style: TextStyle(
                     color: Palette.mainblack,
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               )));
-          navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+          navigationService.navigateTo(Routes.bottomnavView);
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -67,9 +67,5 @@ class RegistrationViewmodel extends BaseViewModel {
       isLoading = false;
       notifyListeners();
     }
-  }
-
-  toSignIn() {
-    navigationService.navigateTo(Routes.loginView);
   }
 }

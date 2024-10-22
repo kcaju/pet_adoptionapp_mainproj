@@ -19,7 +19,7 @@ class SplashViewModel extends BaseViewModel {
       //   //Navigate to login
       // } else {
       //   // Navigate to home
-      navigationService.navigateTo(Routes.getstartView);
+      navigationService.navigateTo(Routes.intermediateView);
       // }
     });
 

@@ -25,7 +25,7 @@ class LoginViewmodel extends BaseViewModel {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Palette.green1,
               content: Text(
-                "User Signed In Successfully",
+                "Logged In Successfully",
                 style: TextStyle(
                     color: Palette.mainblack,
                     fontWeight: FontWeight.bold,
@@ -51,9 +51,5 @@ class LoginViewmodel extends BaseViewModel {
       isLoading = false;
       notifyListeners();
     }
-  }
-
-  toSignUp() {
-    navigationService.navigateTo(Routes.registrationView);
   }
 }

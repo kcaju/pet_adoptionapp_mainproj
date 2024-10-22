@@ -11,16 +11,23 @@ abstract class Palette {
   static const Color yellow = Colors.yellow;
   static const Color blueGrey = Colors.blueGrey;
   static const Color grey = Colors.grey;
+  static const Color grey1 = Color(0xff43405D);
   static const Color amber = Colors.amber;
   static const Color red = Color(0xffFF0000);
   static const Color brown = Color(0xff402637);
-  static const Color blue1 = Color(0xff7756BF);
+  static const Color blue1 = Color(0xff7E8A97);
   static const Color blue2 = Color(0xff5E4BA6);
   static const Color blue3 = Color(0xff282B59);
   static const Color blue4 = Color(0xff494C8C);
   static const Color blue5 = Color(0xff2E4052);
+  static const Color blue6 = Color(0xff1572A1);
 
   static const Color scaffoldBackgroundColor = Color(0xffFFFFFF);
+  //colorhunt pattern
+  static const Color first = Color(0xff2C3333);
+  static const Color third = Color(0xffA2B29F);
+  static const Color second = Color(0xffFDF1D6);
+  static const Color fourth = Color(0xffF5EFFF);
 }
 
 MaterialColor generateMaterialColor(Color color) {

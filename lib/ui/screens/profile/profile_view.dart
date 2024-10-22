@@ -15,9 +15,11 @@ class ProfileView extends StatelessWidget {
       },
       builder: (context, viewModel, child) {
         return Scaffold(
+          backgroundColor: Palette.fourth,
           appBar: AppBar(
-            backgroundColor: Palette.blue3,
+            backgroundColor: Palette.first,
             centerTitle: true,
+            leading: Icon(null),
             title: Text("Profile",
                 style: TextStyle(
                     color: Palette.mainWhite,

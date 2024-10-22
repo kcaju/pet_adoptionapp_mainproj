@@ -15,10 +15,11 @@ class FavouriteView extends StatelessWidget {
       },
       builder: (context, viewModel, child) {
         return Scaffold(
-          backgroundColor: Palette.mainWhite,
+          backgroundColor: Palette.fourth,
           appBar: AppBar(
-            backgroundColor: Palette.blue3,
+            backgroundColor: Palette.first,
             centerTitle: true,
+            leading: Icon(null),
             title: Text(
               "They are waiting for you!!",
               style: TextStyle(
@@ -34,7 +35,7 @@ class FavouriteView extends StatelessWidget {
               separatorBuilder: (context, index) => SizedBox(
                     height: 10,
                   ),
-              itemCount: 12),
+              itemCount: 5),
         );
       },
     );

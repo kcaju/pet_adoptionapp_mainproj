@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/petsupplies_details/petsupplies_details_viewmodel.dart';
@@ -45,6 +46,9 @@ class PetsuppliesDetailsView extends StatelessWidget {
                   Container(
                     height: 240,
                     decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                                "https://5.imimg.com/data5/SELLER/Default/2023/10/354227997/FM/GH/RL/1890507/nutritional-coat-skin-conditioner-for-dog-500x500.jpg")),
                         borderRadius: BorderRadius.circular(15),
                         color: Palette.grey),
                   ),
@@ -130,7 +134,9 @@ class PetsuppliesDetailsView extends StatelessWidget {
                               style: ButtonStyle(
                                   backgroundColor:
                                       WidgetStatePropertyAll(Palette.blue3)),
-                              onPressed: () {},
+                              onPressed: () {
+                                viewModel.addtoCart();
+                              },
                               child: Text(
                                 "Add to Cart",
                                 style: TextStyle(

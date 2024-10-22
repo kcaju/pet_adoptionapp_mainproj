@@ -4,6 +4,6 @@ import 'package:stacked/stacked.dart';
 
 class GetstartViewmodel extends BaseViewModel {
   void navigate() {
-    navigationService.navigateTo(Routes.loginView);
+    navigationService.navigateTo(Routes.boardingscreenView);
   }
 }

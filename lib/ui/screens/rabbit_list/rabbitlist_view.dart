@@ -1,9 +1,9 @@
-import 'package:carousel_slider/carousel_options.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/rabbit_list/rabbitlist_viewmodel.dart';
-import 'package:petadpotion_app/ui/screens/rabbit_list/tab/rabbit_tab.dart';
+import 'package:petadpotion_app/ui/screens/rabbit_list/tab/rabbit_tab_view.dart';
 import 'package:stacked/stacked.dart';
 
 class RabbitlistView extends StatelessWidget {
@@ -53,14 +53,23 @@ class RabbitlistView extends StatelessWidget {
               CarouselSlider(
                   items: List.generate(
                     5,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Container(
-                        height: 250,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Palette.blueGrey),
+                    (index) => InkWell(
+                      onTap: () {
+                        viewModel.onTap(); //to details screen
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: Container(
+                          height: 250,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      "https://riverforestvets.ie/wp-content/uploads/2018/06/rabbit-baby-and-carrot2.jpg")),
+                              borderRadius: BorderRadius.circular(10),
+                              color: Palette.blueGrey),
+                        ),
                       ),
                     ),
                   ),
@@ -76,7 +85,7 @@ class RabbitlistView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
-                  "Raise the hare!!",
+                  "Raise the hare",
                   style: TextStyle(
                       color: Palette.mainblack,
                       fontWeight: FontWeight.bold,
@@ -93,12 +102,12 @@ class RabbitlistView extends StatelessWidget {
                         crossAxisCount: 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 15,
-                        mainAxisExtent: 250),
+                        mainAxisExtent: 290),
                     itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           viewModel.onTap();
                         },
-                        child: RabbitTab())),
+                        child: RabbitTabView())),
               ),
             ],
           ),

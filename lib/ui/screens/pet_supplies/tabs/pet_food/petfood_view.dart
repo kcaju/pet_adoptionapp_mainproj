@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_food/petfood_viewmodel.dart';
@@ -34,8 +35,12 @@ class PetfoodView extends StatelessWidget {
                   Container(
                     height: 150,
                     decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image: CachedNetworkImageProvider(
+                                "https://headsupfortails.com/cdn/shop/files/WhiskasOceanFishAdultDryCatFood_f5bbf1f9-31dd-433e-99bd-00582d979f60.jpg?v=1715949708")),
                         borderRadius: BorderRadius.circular(10),
-                        color: Palette.blue4),
+                        color: Palette.mainWhite),
                   ),
                   SizedBox(
                     height: 10,
@@ -44,20 +49,27 @@ class PetfoodView extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
                       "title",
-                      style: TextStyle(color: Palette.mainblack, fontSize: 18),
+                      style: TextStyle(
+                          color: Palette.mainblack,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
                       "price",
-                      style: TextStyle(color: Palette.mainblack, fontSize: 16),
+                      style: TextStyle(
+                          color: Palette.mainblack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16),
                     ),
                   )
                 ],
               ),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Palette.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Palette.blue1),
             ),
           ),
         );

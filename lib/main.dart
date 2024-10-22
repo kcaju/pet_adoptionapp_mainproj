@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:petadpotion_app/firebase_options.dart';
+import 'package:petadpotion_app/ui/screens/pet_details/petdetails_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:statusbarz/statusbarz.dart';
 
@@ -53,33 +55,40 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 800),
       builder: (context, child) {
         return StatusbarzCapturer(
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: AppStrings.appName,
-            theme: ThemeData(
-              primarySwatch: generateMaterialColor(Palette.primary),
-              fontFamily: FontFamily.barlow,
-              scaffoldBackgroundColor: Palette.scaffoldBackgroundColor,
-            ),
-            builder: FlutterSmartDialog.init(
-              builder: (context, child) {
-                ScreenSize.init(context);
-
-                return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-                  child: child!,
-                );
-              },
-              toastBuilder: toastBuilder,
-              loadingBuilder: loadingBuilder,
-            ),
-            navigatorKey: StackedService.navigatorKey,
-            onGenerateRoute: StackedRouter().onGenerateRoute,
-            navigatorObservers: [
-              StackedService.routeObserver,
-              Statusbarz.instance.observer,
-              FlutterSmartDialog.observer
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => PetdetailsViewmodel(),
+              )
             ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: AppStrings.appName,
+              theme: ThemeData(
+                primarySwatch: generateMaterialColor(Palette.primary),
+                fontFamily: FontFamily.barlow,
+                scaffoldBackgroundColor: Palette.scaffoldBackgroundColor,
+              ),
+              builder: FlutterSmartDialog.init(
+                builder: (context, child) {
+                  ScreenSize.init(context);
+
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                    child: child!,
+                  );
+                },
+                toastBuilder: toastBuilder,
+                loadingBuilder: loadingBuilder,
+              ),
+              navigatorKey: StackedService.navigatorKey,
+              onGenerateRoute: StackedRouter().onGenerateRoute,
+              navigatorObservers: [
+                StackedService.routeObserver,
+                Statusbarz.instance.observer,
+                FlutterSmartDialog.observer
+              ],
+            ),
           ),
         );
       },

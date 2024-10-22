@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 
@@ -7,11 +8,12 @@ class FavouriteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Palette.blue2,
+      color: Palette.blue1,
       child: ListTile(
         leading: CircleAvatar(
           radius: 40,
-          backgroundColor: Palette.grey,
+          backgroundImage: CachedNetworkImageProvider(
+              "https://static.vecteezy.com/system/resources/thumbnails/023/595/164/small_2x/rabbit-in-the-forest-at-sunset-animal-in-nature-easter-bunny-wildlife-scene-generative-ai-photo.jpg"),
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,6 +28,7 @@ class FavouriteCard extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: Icon(
+                size: 32,
                 Icons.heart_broken,
                 color: Palette.red,
               ),

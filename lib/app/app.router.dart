@@ -5,38 +5,40 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i14;
+import 'package:flutter/material.dart' as _i15;
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/ui/screens/birds_list/birdlist_view.dart'
     as _i9;
 import 'package:petadpotion_app/ui/screens/bottomnav/bottomnav_view.dart'
     as _i6;
+import 'package:petadpotion_app/ui/screens/cart_screen/cart_view.dart' as _i14;
 import 'package:petadpotion_app/ui/screens/cats_list/catlist_view.dart' as _i8;
 import 'package:petadpotion_app/ui/screens/confirm_adoption/confirmadoption_view.dart'
     as _i13;
 import 'package:petadpotion_app/ui/screens/dogs_list/doglist_view.dart' as _i7;
 import 'package:petadpotion_app/ui/screens/get_start/getstart_view.dart' as _i3;
-import 'package:petadpotion_app/ui/screens/login/login_view.dart' as _i4;
+import 'package:petadpotion_app/ui/screens/intermediate_screen/intermediate_view.dart'
+    as _i4;
+import 'package:petadpotion_app/ui/screens/on_boarding_screen/boardingscreen_view.dart'
+    as _i5;
 import 'package:petadpotion_app/ui/screens/pet_details/petdetails_view.dart'
     as _i11;
 import 'package:petadpotion_app/ui/screens/petsupplies_details/petsupplies_details_view.dart'
     as _i12;
 import 'package:petadpotion_app/ui/screens/rabbit_list/rabbitlist_view.dart'
     as _i10;
-import 'package:petadpotion_app/ui/screens/registration/registration_view.dart'
-    as _i5;
 import 'package:petadpotion_app/ui/screens/splash/splash_view.dart' as _i2;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i15;
+import 'package:stacked_services/stacked_services.dart' as _i16;
 
 class Routes {
   static const splashView = '/';
 
   static const getstartView = '/getstart-view';
 
-  static const loginView = '/login-view';
+  static const intermediateView = '/intermediate-view';
 
-  static const registrationView = '/registration-view';
+  static const boardingscreenView = '/boardingscreen-view';
 
   static const bottomnavView = '/bottomnav-view';
 
@@ -54,11 +56,13 @@ class Routes {
 
   static const confirmadoptionView = '/confirmadoption-view';
 
+  static const cartView = '/cart-view';
+
   static const all = <String>{
     splashView,
     getstartView,
-    loginView,
-    registrationView,
+    intermediateView,
+    boardingscreenView,
     bottomnavView,
     doglistView,
     catlistView,
@@ -67,6 +71,7 @@ class Routes {
     petdetailsView,
     petsuppliesDetailsView,
     confirmadoptionView,
+    cartView,
   };
 }
 
@@ -81,12 +86,12 @@ class StackedRouter extends _i1.RouterBase {
       page: _i3.GetstartView,
     ),
     _i1.RouteDef(
-      Routes.loginView,
-      page: _i4.LoginView,
+      Routes.intermediateView,
+      page: _i4.IntermediateView,
     ),
     _i1.RouteDef(
-      Routes.registrationView,
-      page: _i5.RegistrationView,
+      Routes.boardingscreenView,
+      page: _i5.BoardingscreenView,
     ),
     _i1.RouteDef(
       Routes.bottomnavView,
@@ -120,78 +125,123 @@ class StackedRouter extends _i1.RouterBase {
       Routes.confirmadoptionView,
       page: _i13.ConfirmadoptionView,
     ),
+    _i1.RouteDef(
+      Routes.cartView,
+      page: _i14.CartView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.SplashView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.SplashView(),
         settings: data,
       );
     },
     _i3.GetstartView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.GetstartView(),
         settings: data,
       );
     },
-    _i4.LoginView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.LoginView(),
+    _i4.IntermediateView: (data) {
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i4.IntermediateView(),
         settings: data,
       );
     },
-    _i5.RegistrationView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i5.RegistrationView(),
+    _i5.BoardingscreenView: (data) {
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i5.BoardingscreenView(),
         settings: data,
       );
     },
     _i6.BottomnavView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.BottomnavView(),
         settings: data,
       );
     },
     _i7.DoglistView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.DoglistView(),
+      final args = data.getArgs<DoglistViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i7.DoglistView(
+            key: args.key,
+            dogData: args.dogData,
+            id: args.id,
+            url: args.url,
+            breed: args.breed,
+            category: args.category),
         settings: data,
       );
     },
     _i8.CatlistView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.CatlistView(),
+      final args = data.getArgs<CatlistViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i8.CatlistView(
+            key: args.key,
+            catData: args.catData,
+            id: args.id,
+            url: args.url,
+            breed: args.breed,
+            category: args.category),
         settings: data,
       );
     },
     _i9.BirdlistView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.BirdlistView(),
+      final args = data.getArgs<BirdlistViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i9.BirdlistView(
+            key: args.key,
+            birdData: args.birdData,
+            id: args.id,
+            url: args.url,
+            breed: args.breed,
+            category: args.category),
         settings: data,
       );
     },
     _i10.RabbitlistView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.RabbitlistView(),
         settings: data,
       );
     },
     _i11.PetdetailsView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i11.PetdetailsView(),
+      final args = data.getArgs<PetdetailsViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i11.PetdetailsView(
+            key: args.key,
+            name: args.name,
+            color: args.color,
+            owner: args.owner,
+            desc: args.desc,
+            sex: args.sex,
+            location: args.location,
+            url: args.url,
+            price: args.price,
+            age: args.age,
+            petId: args.petId),
         settings: data,
       );
     },
     _i12.PetsuppliesDetailsView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.PetsuppliesDetailsView(),
         settings: data,
       );
     },
     _i13.ConfirmadoptionView: (data) {
-      return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i13.ConfirmadoptionView(),
+      final args = data.getArgs<ConfirmadoptionViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i13.ConfirmadoptionView(
+            key: args.key, name: args.name, price: args.price, url: args.url),
+        settings: data,
+      );
+    },
+    _i14.CartView: (data) {
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i14.CartView(),
         settings: data,
       );
     },
@@ -204,7 +254,264 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i15.NavigationService {
+class DoglistViewArguments {
+  const DoglistViewArguments({
+    this.key,
+    required this.dogData,
+    required this.id,
+    required this.url,
+    required this.breed,
+    required this.category,
+  });
+
+  final _i15.Key? key;
+
+  final Map<String, dynamic> dogData;
+
+  final String id;
+
+  final String url;
+
+  final String breed;
+
+  final String category;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "dogData": "$dogData", "id": "$id", "url": "$url", "breed": "$breed", "category": "$category"}';
+  }
+
+  @override
+  bool operator ==(covariant DoglistViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.dogData == dogData &&
+        other.id == id &&
+        other.url == url &&
+        other.breed == breed &&
+        other.category == category;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^
+        dogData.hashCode ^
+        id.hashCode ^
+        url.hashCode ^
+        breed.hashCode ^
+        category.hashCode;
+  }
+}
+
+class CatlistViewArguments {
+  const CatlistViewArguments({
+    this.key,
+    required this.catData,
+    required this.id,
+    required this.url,
+    required this.breed,
+    required this.category,
+  });
+
+  final _i15.Key? key;
+
+  final Map<String, dynamic> catData;
+
+  final String id;
+
+  final String url;
+
+  final String breed;
+
+  final String category;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "catData": "$catData", "id": "$id", "url": "$url", "breed": "$breed", "category": "$category"}';
+  }
+
+  @override
+  bool operator ==(covariant CatlistViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.catData == catData &&
+        other.id == id &&
+        other.url == url &&
+        other.breed == breed &&
+        other.category == category;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^
+        catData.hashCode ^
+        id.hashCode ^
+        url.hashCode ^
+        breed.hashCode ^
+        category.hashCode;
+  }
+}
+
+class BirdlistViewArguments {
+  const BirdlistViewArguments({
+    this.key,
+    required this.birdData,
+    required this.id,
+    required this.url,
+    required this.breed,
+    required this.category,
+  });
+
+  final _i15.Key? key;
+
+  final Map<String, dynamic> birdData;
+
+  final String id;
+
+  final String url;
+
+  final String breed;
+
+  final String category;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "birdData": "$birdData", "id": "$id", "url": "$url", "breed": "$breed", "category": "$category"}';
+  }
+
+  @override
+  bool operator ==(covariant BirdlistViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.birdData == birdData &&
+        other.id == id &&
+        other.url == url &&
+        other.breed == breed &&
+        other.category == category;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^
+        birdData.hashCode ^
+        id.hashCode ^
+        url.hashCode ^
+        breed.hashCode ^
+        category.hashCode;
+  }
+}
+
+class PetdetailsViewArguments {
+  const PetdetailsViewArguments({
+    this.key,
+    required this.name,
+    required this.color,
+    required this.owner,
+    required this.desc,
+    required this.sex,
+    required this.location,
+    required this.url,
+    required this.price,
+    required this.age,
+    required this.petId,
+  });
+
+  final _i15.Key? key;
+
+  final String name;
+
+  final String color;
+
+  final String owner;
+
+  final String desc;
+
+  final String sex;
+
+  final String location;
+
+  final String url;
+
+  final num price;
+
+  final num age;
+
+  final String petId;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "name": "$name", "color": "$color", "owner": "$owner", "desc": "$desc", "sex": "$sex", "location": "$location", "url": "$url", "price": "$price", "age": "$age", "petId": "$petId"}';
+  }
+
+  @override
+  bool operator ==(covariant PetdetailsViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.name == name &&
+        other.color == color &&
+        other.owner == owner &&
+        other.desc == desc &&
+        other.sex == sex &&
+        other.location == location &&
+        other.url == url &&
+        other.price == price &&
+        other.age == age &&
+        other.petId == petId;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^
+        name.hashCode ^
+        color.hashCode ^
+        owner.hashCode ^
+        desc.hashCode ^
+        sex.hashCode ^
+        location.hashCode ^
+        url.hashCode ^
+        price.hashCode ^
+        age.hashCode ^
+        petId.hashCode;
+  }
+}
+
+class ConfirmadoptionViewArguments {
+  const ConfirmadoptionViewArguments({
+    this.key,
+    required this.name,
+    required this.price,
+    required this.url,
+  });
+
+  final _i15.Key? key;
+
+  final String name;
+
+  final num price;
+
+  final String url;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "name": "$name", "price": "$price", "url": "$url"}';
+  }
+
+  @override
+  bool operator ==(covariant ConfirmadoptionViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.name == name &&
+        other.price == price &&
+        other.url == url;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ name.hashCode ^ price.hashCode ^ url.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i16.NavigationService {
   Future<dynamic> navigateToSplashView([
     int? routerId,
     bool preventDuplicates = true,
@@ -233,28 +540,28 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToLoginView([
+  Future<dynamic> navigateToIntermediateView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.loginView,
+    return navigateTo<dynamic>(Routes.intermediateView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToRegistrationView([
+  Future<dynamic> navigateToBoardingscreenView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.registrationView,
+    return navigateTo<dynamic>(Routes.boardingscreenView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -275,42 +582,81 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToDoglistView([
+  Future<dynamic> navigateToDoglistView({
+    _i15.Key? key,
+    required Map<String, dynamic> dogData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.doglistView,
+        arguments: DoglistViewArguments(
+            key: key,
+            dogData: dogData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToCatlistView([
+  Future<dynamic> navigateToCatlistView({
+    _i15.Key? key,
+    required Map<String, dynamic> catData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.catlistView,
+        arguments: CatlistViewArguments(
+            key: key,
+            catData: catData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToBirdlistView([
+  Future<dynamic> navigateToBirdlistView({
+    _i15.Key? key,
+    required Map<String, dynamic> birdData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.birdlistView,
+        arguments: BirdlistViewArguments(
+            key: key,
+            birdData: birdData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -331,14 +677,37 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToPetdetailsView([
+  Future<dynamic> navigateToPetdetailsView({
+    _i15.Key? key,
+    required String name,
+    required String color,
+    required String owner,
+    required String desc,
+    required String sex,
+    required String location,
+    required String url,
+    required num price,
+    required num age,
+    required String petId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.petdetailsView,
+        arguments: PetdetailsViewArguments(
+            key: key,
+            name: name,
+            color: color,
+            owner: owner,
+            desc: desc,
+            sex: sex,
+            location: location,
+            url: url,
+            price: price,
+            age: age,
+            petId: petId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -359,14 +728,34 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToConfirmadoptionView([
+  Future<dynamic> navigateToConfirmadoptionView({
+    _i15.Key? key,
+    required String name,
+    required num price,
+    required String url,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.confirmadoptionView,
+        arguments: ConfirmadoptionViewArguments(
+            key: key, name: name, price: price, url: url),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToCartView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.confirmadoptionView,
+    return navigateTo<dynamic>(Routes.cartView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -401,28 +790,28 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithLoginView([
+  Future<dynamic> replaceWithIntermediateView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.loginView,
+    return replaceWith<dynamic>(Routes.intermediateView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRegistrationView([
+  Future<dynamic> replaceWithBoardingscreenView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.registrationView,
+    return replaceWith<dynamic>(Routes.boardingscreenView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -443,42 +832,81 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithDoglistView([
+  Future<dynamic> replaceWithDoglistView({
+    _i15.Key? key,
+    required Map<String, dynamic> dogData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.doglistView,
+        arguments: DoglistViewArguments(
+            key: key,
+            dogData: dogData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithCatlistView([
+  Future<dynamic> replaceWithCatlistView({
+    _i15.Key? key,
+    required Map<String, dynamic> catData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.catlistView,
+        arguments: CatlistViewArguments(
+            key: key,
+            catData: catData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBirdlistView([
+  Future<dynamic> replaceWithBirdlistView({
+    _i15.Key? key,
+    required Map<String, dynamic> birdData,
+    required String id,
+    required String url,
+    required String breed,
+    required String category,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.birdlistView,
+        arguments: BirdlistViewArguments(
+            key: key,
+            birdData: birdData,
+            id: id,
+            url: url,
+            breed: breed,
+            category: category),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -499,14 +927,37 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithPetdetailsView([
+  Future<dynamic> replaceWithPetdetailsView({
+    _i15.Key? key,
+    required String name,
+    required String color,
+    required String owner,
+    required String desc,
+    required String sex,
+    required String location,
+    required String url,
+    required num price,
+    required num age,
+    required String petId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.petdetailsView,
+        arguments: PetdetailsViewArguments(
+            key: key,
+            name: name,
+            color: color,
+            owner: owner,
+            desc: desc,
+            sex: sex,
+            location: location,
+            url: url,
+            price: price,
+            age: age,
+            petId: petId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -527,14 +978,34 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithConfirmadoptionView([
+  Future<dynamic> replaceWithConfirmadoptionView({
+    _i15.Key? key,
+    required String name,
+    required num price,
+    required String url,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.confirmadoptionView,
+        arguments: ConfirmadoptionViewArguments(
+            key: key, name: name, price: price, url: url),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithCartView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.confirmadoptionView,
+    return replaceWith<dynamic>(Routes.cartView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

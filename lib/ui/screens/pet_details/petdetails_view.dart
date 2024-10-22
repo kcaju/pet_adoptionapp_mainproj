@@ -1,11 +1,49 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
-import 'package:petadpotion_app/constants/assets.gen.dart';
 import 'package:petadpotion_app/ui/screens/pet_details/petdetails_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
-class PetdetailsView extends StatelessWidget {
-  const PetdetailsView({super.key});
+class PetdetailsView extends StatefulWidget {
+  const PetdetailsView(
+      {super.key,
+      required this.name,
+      required this.color,
+      required this.owner,
+      required this.desc,
+      required this.sex,
+      required this.location,
+      required this.url,
+      required this.price,
+      required this.age,
+      required this.petId});
+  final String name, color, owner, desc, sex, location, url;
+  final num price, age;
+  final String petId;
+
+  @override
+  State<PetdetailsView> createState() => _PetdetailsViewState();
+}
+
+class _PetdetailsViewState extends State<PetdetailsView> {
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    _checkIfSaved();
+    super.initState();
+  }
+
+  Future<void> _checkIfSaved() async {
+    final viewModel = context.read<PetdetailsViewmodel>();
+    final querySnapshot = await viewModel.favoriteList
+        .where('petId', isEqualTo: widget.petId)
+        .get();
+    setState(() {
+      isSaved = querySnapshot.docs.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +64,57 @@ class PetdetailsView extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            viewModel.goBack();
+                          },
+                          child: Icon(
+                            Icons.pets,
+                            size: 35,
+                            color: Palette.mainWhite,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              isSaved = !isSaved;
+                              // viewModel.isFav(
+                              //     petId: widget.petId,
+                              //     petname: widget.name,
+                              //     price: widget.price,
+                              //     url: widget.url);
+                              if (isSaved) {
+                                context.read<PetdetailsViewmodel>().isFav(
+                                    petId: widget.petId,
+                                    petname: widget.name,
+                                    price: widget.price,
+                                    url: widget.url,
+                                    context: context);
+                              } else {
+                                context
+                                    .read<PetdetailsViewmodel>()
+                                    .removeFav(widget.petId, context);
+                              }
+                            });
+                          },
+                          child: CircleAvatar(
+                            child: Icon(
+                              isSaved ? Icons.favorite : Icons.favorite_outline,
+                              color: Palette.red,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage(Assets.images.dog2.path))),
+                            image: CachedNetworkImageProvider(widget.url))),
                   ),
                 ),
                 Container(
@@ -49,13 +134,13 @@ class PetdetailsView extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "name",
+                                      widget.name,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25),
                                     ),
                                     Text(
-                                      "price",
+                                      "${widget.price} ₹",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 25),
@@ -75,10 +160,10 @@ class PetdetailsView extends StatelessWidget {
                                       width: 5,
                                     ),
                                     Text(
-                                      "location",
+                                      widget.location,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          color: Palette.blueGrey,
+                                          color: Palette.mainblack,
                                           fontSize: 25),
                                     ),
                                   ],
@@ -101,14 +186,14 @@ class PetdetailsView extends StatelessWidget {
                                             "Sex",
                                             style: TextStyle(
                                                 color: Palette.green,
-                                                fontSize: 16,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           SizedBox(
                                             height: 10,
                                           ),
                                           Text(
-                                            "data",
+                                            widget.sex,
                                             style: TextStyle(
                                                 color: Palette.mainblack,
                                                 fontSize: 20,
@@ -132,14 +217,14 @@ class PetdetailsView extends StatelessWidget {
                                             "Age",
                                             style: TextStyle(
                                                 color: Palette.green,
-                                                fontSize: 16,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           SizedBox(
                                             height: 10,
                                           ),
                                           Text(
-                                            "data",
+                                            "${widget.age} Years",
                                             style: TextStyle(
                                                 color: Palette.mainblack,
                                                 fontSize: 20,
@@ -150,7 +235,7 @@ class PetdetailsView extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
                                           border:
-                                              Border.all(color: Palette.grey)),
+                                              Border.all(color: Palette.blue1)),
                                     ),
                                     Container(
                                       height: 100,
@@ -163,14 +248,14 @@ class PetdetailsView extends StatelessWidget {
                                             "Color",
                                             style: TextStyle(
                                                 color: Palette.green,
-                                                fontSize: 16,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           SizedBox(
                                             height: 10,
                                           ),
                                           Text(
-                                            "data",
+                                            widget.color,
                                             style: TextStyle(
                                                 color: Palette.mainblack,
                                                 fontSize: 20,
@@ -190,14 +275,14 @@ class PetdetailsView extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    CircleAvatar(
-                                      radius: 25,
-                                      backgroundImage:
-                                          Assets.images.profile1.image().image,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
+                                    // CircleAvatar(
+                                    //   radius: 25,
+                                    //   backgroundImage:
+                                    //       Assets.images.profile1.image().image,
+                                    // ),
+                                    // SizedBox(
+                                    //   width: 10,
+                                    // ),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -206,17 +291,17 @@ class PetdetailsView extends StatelessWidget {
                                           "Owned by :",
                                           style: TextStyle(
                                               color: Palette.mainblack,
-                                              fontSize: 14,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.w600),
                                         ),
                                         SizedBox(
                                           height: 3,
                                         ),
                                         Text(
-                                          "Owner name",
+                                          widget.owner,
                                           style: TextStyle(
                                               color: Palette.mainblack,
-                                              fontSize: 16,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.bold),
                                         )
                                       ],
@@ -234,7 +319,12 @@ class PetdetailsView extends StatelessWidget {
                                 ),
                                 //description
                                 Text(
-                                    " There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.")
+                                  widget.desc,
+                                  style: TextStyle(
+                                      color: Palette.mainblack,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                )
                               ],
                             ),
                           ),
@@ -247,7 +337,8 @@ class PetdetailsView extends StatelessWidget {
                                   backgroundColor:
                                       WidgetStatePropertyAll(Palette.blue1)),
                               onPressed: () {
-                                viewModel.navigate();
+                                viewModel.navigate(
+                                    widget.name, widget.url, widget.price);
                               },
                               child: Text(
                                 "Adopt me",

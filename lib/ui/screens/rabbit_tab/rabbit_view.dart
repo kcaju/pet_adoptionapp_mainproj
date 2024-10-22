@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/rabbit_tab/rabbit_viewmodel.dart';
@@ -22,7 +23,7 @@ class RabbitView extends StatelessWidget {
               GridView.builder(
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
-                itemCount: 6,
+                itemCount: viewModel.rabbitBreed.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -31,11 +32,6 @@ class RabbitView extends StatelessWidget {
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     viewModel.navigate();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => DogsList(),
-                    //     ));
                   },
                   child: Container(
                     child: Column(
@@ -45,14 +41,15 @@ class RabbitView extends StatelessWidget {
                             Container(
                               height: 250,
                               decoration: BoxDecoration(
-                                  // image: DecorationImage(
-                                  //     fit: BoxFit.cover,
-                                  //     image: NetworkImage("")),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(50)),
-                                  color: Palette.blue4),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: CachedNetworkImageProvider(
+                                        viewModel.rabbitBreed[index]['url'])),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomRight: Radius.circular(50)),
+                              ),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 10),
                             )
@@ -61,17 +58,19 @@ class RabbitView extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        Text(
-                          "breed",
-                          style: TextStyle(
-                              color: Palette.mainblack,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            viewModel.rabbitBreed[index]['breed'],
+                            style: TextStyle(
+                                color: Palette.mainblack,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
                         )
                       ],
                     ),
                     decoration: BoxDecoration(
-                        color: Palette.amber,
+                        color: Palette.third,
                         borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
