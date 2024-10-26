@@ -31,6 +31,7 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
   TextEditingController location = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController url = TextEditingController();
+  TextEditingController phone = TextEditingController();
   final formkey = GlobalKey<FormState>();
   List<String> selectSex = ["male", 'female'];
   List<String> selectCategory = ["Dog", 'Cat', 'Bird'];
@@ -58,7 +59,6 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     petCategory = widget.category;
     chooseBreed = widget.breed;
@@ -71,11 +71,11 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
 
   Future<void> updateData() async {
     var newPets = FirebaseFirestore.instance.collection("NewPets");
-    var dogBreeds = FirebaseFirestore.instance
+    var allBreeds = FirebaseFirestore.instance
         .collection("${widget.collectionName}")
         .doc(widget.documentId)
         .collection(widget.breed.toLowerCase());
-    await dogBreeds.add({
+    await allBreeds.add({
       'name': petname.text,
       'location': location.text,
       'price': num.parse(price.text),
@@ -86,7 +86,8 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
       'owner': ownername.text,
       'desc': desc.text,
       'breed': chooseBreed,
-      'category': petCategory
+      'category': petCategory,
+      'phone': phone.text
     });
     await newPets.add({
       'name': petname.text,
@@ -99,7 +100,8 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
       'owner': ownername.text,
       'desc': desc.text,
       'breed': chooseBreed,
-      'category': petCategory
+      'category': petCategory,
+      'phone': phone.text,
     });
     Navigator.of(context).pop(); // Close the bottom sheet after updating
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -111,6 +113,58 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
               fontWeight: FontWeight.bold,
               fontSize: 18),
         )));
+  }
+
+  Future<void> _showConfirmationDialog() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // User must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Registration',
+            style: TextStyle(
+                color: Palette.mainblack,
+                fontSize: 22,
+                fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            'Are you sure you want to register this pet for sale?',
+            style: TextStyle(
+                color: Palette.mainblack,
+                fontSize: 18,
+                fontWeight: FontWeight.w600),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                    color: Palette.red,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Confirm',
+                style: TextStyle(
+                    color: Palette.blue4,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                updateData(); // Proceed to update data
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -134,7 +188,21 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
                       fontWeight: FontWeight.bold),
                 ),
                 CustomTextfield(data: "Pet's name", controller: petname),
-                CustomTextfield(data: "Owner's name", controller: ownername),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomTextfield(
+                            data: "Owner's name", controller: ownername)),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                        child: CustomTextfield(
+                            isPhone: true,
+                            data: "Phone number",
+                            controller: phone)),
+                  ],
+                ),
                 SizedBox(
                   height: 5,
                 ),
@@ -271,7 +339,7 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
                   width: 200,
                   child: ElevatedButton(
                       onPressed: () {
-                        updateData();
+                        _showConfirmationDialog();
                       },
                       style: ButtonStyle(
                           backgroundColor:

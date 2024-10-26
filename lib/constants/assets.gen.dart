@@ -64,6 +64,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/bird1.jpg
   AssetGenImage get bird1 => const AssetGenImage('assets/images/bird1.jpg');
 
+  /// File path: assets/images/boardingimg.jpg
+  AssetGenImage get boardingimg =>
+      const AssetGenImage('assets/images/boardingimg.jpg');
+
+  /// File path: assets/images/cage.png
+  AssetGenImage get cage => const AssetGenImage('assets/images/cage.png');
+
   /// File path: assets/images/cart.png
   AssetGenImage get cart => const AssetGenImage('assets/images/cart.png');
 
@@ -73,20 +80,20 @@ class $AssetsImagesGen {
   /// File path: assets/images/dog.jpg
   AssetGenImage get dog => const AssetGenImage('assets/images/dog.jpg');
 
-  /// File path: assets/images/dog1.jpg
-  AssetGenImage get dog1 => const AssetGenImage('assets/images/dog1.jpg');
+  /// File path: assets/images/fav.png
+  AssetGenImage get fav => const AssetGenImage('assets/images/fav.png');
 
-  /// File path: assets/images/dogs.jpg
-  AssetGenImage get dogs => const AssetGenImage('assets/images/dogs.jpg');
-
-  /// File path: assets/images/dogtab.jpeg
-  AssetGenImage get dogtab => const AssetGenImage('assets/images/dogtab.jpeg');
+  /// File path: assets/images/foods.png
+  AssetGenImage get foods => const AssetGenImage('assets/images/foods.png');
 
   /// File path: assets/images/gifcat.gif
   AssetGenImage get gifcat => const AssetGenImage('assets/images/gifcat.gif');
 
   /// File path: assets/images/gifdog.gif
   AssetGenImage get gifdog => const AssetGenImage('assets/images/gifdog.gif');
+
+  /// File path: assets/images/home.png
+  AssetGenImage get home => const AssetGenImage('assets/images/home.png');
 
   /// File path: assets/images/logindog.png
   AssetGenImage get logindog =>
@@ -96,17 +103,19 @@ class $AssetsImagesGen {
   AssetGenImage get medicine =>
       const AssetGenImage('assets/images/medicine.png');
 
+  /// File path: assets/images/medicines.png
+  AssetGenImage get medicines =>
+      const AssetGenImage('assets/images/medicines.png');
+
   /// File path: assets/images/one.jpg
   AssetGenImage get one => const AssetGenImage('assets/images/one.jpg');
 
   /// File path: assets/images/paws.png
   AssetGenImage get paws => const AssetGenImage('assets/images/paws.png');
 
-  /// File path: assets/images/petcare.png
-  AssetGenImage get petcare => const AssetGenImage('assets/images/petcare.png');
-
-  /// File path: assets/images/petfood.png
-  AssetGenImage get petfood => const AssetGenImage('assets/images/petfood.png');
+  /// File path: assets/images/petfoods.png
+  AssetGenImage get petfoods =>
+      const AssetGenImage('assets/images/petfoods.png');
 
   /// File path: assets/images/petfud.jpg
   AssetGenImage get petfud => const AssetGenImage('assets/images/petfud.jpg');
@@ -114,37 +123,38 @@ class $AssetsImagesGen {
   /// File path: assets/images/petplus.jpg
   AssetGenImage get petplus => const AssetGenImage('assets/images/petplus.jpg');
 
+  /// File path: assets/images/profile.png
+  AssetGenImage get profile => const AssetGenImage('assets/images/profile.png');
+
   /// File path: assets/images/profile1.jpg
   AssetGenImage get profile1 =>
       const AssetGenImage('assets/images/profile1.jpg');
-
-  /// File path: assets/images/regcover.jpg
-  AssetGenImage get regcover =>
-      const AssetGenImage('assets/images/regcover.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [
         adopt,
         bg,
         bird1,
+        boardingimg,
+        cage,
         cart,
         cat1,
         dog,
-        dog1,
-        dogs,
-        dogtab,
+        fav,
+        foods,
         gifcat,
         gifdog,
+        home,
         logindog,
         medicine,
+        medicines,
         one,
         paws,
-        petcare,
-        petfood,
+        petfoods,
         petfud,
         petplus,
-        profile1,
-        regcover
+        profile,
+        profile1
       ];
 }
 

@@ -85,9 +85,11 @@ class ConfirmadoptionView extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       CustomTextfield(
+                          isPhone: false,
                           data: "Enter your Name",
                           controller: viewModel.orderingPersonName),
                       CustomTextfield(
+                          isPhone: true,
                           data: "Enter your Phone-number",
                           controller: viewModel.phoneNumber),
                       Text(
@@ -98,6 +100,7 @@ class ConfirmadoptionView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       CustomTextfield(
+                          isPhone: false,
                           maxlines: 3,
                           data: "Enter your Address",
                           controller: viewModel.address),
@@ -120,14 +123,33 @@ class ConfirmadoptionView extends StatelessWidget {
                               //razorpay payment
                               viewModel.checkout(
                                   price, viewModel.phoneNumber.text);
-                              await orderDetails.add({
+
+                              // Create a new order document
+                              DocumentReference orderRef =
+                                  await orderDetails.add({
                                 "name": viewModel.orderingPersonName.text,
                                 "phone": viewModel.phoneNumber.text,
                                 "address": viewModel.address.text,
                                 "petname": name,
                                 "price": price,
                                 "image": url,
+                                "status": "Order placed",
                               });
+
+                              // Now, update the same document with the OrderId
+                              await orderRef.update({
+                                "OrderId": orderRef.id,
+                              });
+                              // await orderDetails.add({
+                              //   "name": viewModel.orderingPersonName.text,
+                              //   "phone": viewModel.phoneNumber.text,
+                              //   "address": viewModel.address.text,
+                              //   "petname": name,
+                              //   "price": price,
+                              //   "image": url,
+                              //   "status": "Order placed",
+                              //   "OrderId":orderDetails.doc(orderDetails.id).id
+                              // });
                             }
                           },
                           child: Text(

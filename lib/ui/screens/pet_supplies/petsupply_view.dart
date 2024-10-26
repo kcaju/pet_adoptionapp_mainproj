@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/constants/assets.gen.dart';
 import 'package:petadpotion_app/ui/screens/pet_supplies/petsupply_viewmodel.dart';
+import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_accessories/petaccessories_view.dart';
 import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_food/petfood_view.dart';
 import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_medicine/petmedicine_view.dart';
 import 'package:stacked/stacked.dart';
@@ -17,7 +18,7 @@ class PetsupplyView extends StatelessWidget {
       },
       builder: (context, viewModel, child) {
         return DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             backgroundColor: Palette.fourth,
             appBar: AppBar(
@@ -59,34 +60,23 @@ class PetsupplyView extends StatelessWidget {
                     tabs: [
                       Tab(
                         text: "Foods",
-                        icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 80,
-                            height: 50,
-                            child: Image.asset(
-                              Assets.images.petfud.path,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        icon: Assets.images.foods.image(height: 50),
                       ),
                       Tab(
                         text: "Medicines",
-                        icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 80,
-                            height: 50,
-                            child:
-                                Assets.images.petplus.image(fit: BoxFit.cover),
-                          ),
-                        ),
+                        icon: Assets.images.medicines.image(height: 50),
+                      ),
+                      Tab(
+                        text: "Accessories",
+                        icon: Assets.images.cage.image(height: 50),
                       ),
                     ]),
                 Expanded(
-                    child: TabBarView(
-                        children: [PetfoodView(), PetmedicineView()]))
+                    child: TabBarView(children: [
+                  PetfoodView(),
+                  PetmedicineView(),
+                  PetaccessoriesView()
+                ]))
               ],
             ),
           ),

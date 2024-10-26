@@ -1,11 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/petsupplies_details/petsupplies_details_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class PetsuppliesDetailsView extends StatelessWidget {
-  const PetsuppliesDetailsView({super.key});
+  const PetsuppliesDetailsView(
+      {super.key,
+      required this.name,
+      required this.desc,
+      required this.size,
+      required this.url,
+      required this.benefits,
+      required this.price,
+      this.isAccessory = false});
+  final String name, desc, size, url, benefits;
+  final num price;
+  final bool isAccessory;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +27,9 @@ class PetsuppliesDetailsView extends StatelessWidget {
       },
       builder: (context, viewModel, child) {
         return Scaffold(
-          backgroundColor: Palette.blueGrey,
+          backgroundColor: Palette.scaffoldBackgroundColor,
           appBar: AppBar(
-            backgroundColor: Palette.blue3,
+            backgroundColor: Palette.first,
             leading: IconButton(
                 onPressed: () {
                   viewModel.goBack();
@@ -29,26 +41,25 @@ class PetsuppliesDetailsView extends StatelessWidget {
                 )),
             centerTitle: true,
             title: Text(
-              " Feed them well",
+              isAccessory ? "Unique Pet Accessories" : "Feed them well",
               style: TextStyle(
                   color: Palette.mainWhite, fontWeight: FontWeight.bold),
             ),
           ),
-          body: Center(
-              child: Padding(
-            padding: const EdgeInsets.all(20),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Container(
               padding: EdgeInsets.all(15),
-              height: 650,
+              // height: 700,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 240,
+                    height: 280,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                "https://5.imimg.com/data5/SELLER/Default/2023/10/354227997/FM/GH/RL/1890507/nutritional-coat-skin-conditioner-for-dog-500x500.jpg")),
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(url)),
                         borderRadius: BorderRadius.circular(15),
                         color: Palette.grey),
                   ),
@@ -60,7 +71,7 @@ class PetsuppliesDetailsView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Product Name",
+                              name,
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Palette.mainblack,
@@ -73,86 +84,95 @@ class PetsuppliesDetailsView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "price ₹",
+                                  "$price ₹",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Palette.mainblack,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  "Size: $size",
                                   style: TextStyle(
                                       fontSize: 18,
                                       color: Palette.mainblack,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Net Qty:",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Palette.mainblack,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "kg/g",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Palette.mainblack,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            ExpansionTile(
-                              title: Text(
-                                "Description",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Palette.mainblack,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              children: [
-                                Text(
-                                    "About this item, A daily Adult Dog nutrition contains all the essential Vitamins, minerals and antioxidants that boosts your pet's health and vitality, Ideal for weight management and keeping your pet active and agile, It is easily digestible and supports a healthy immune system, Fortified with Vitamins and Minerals help to keep your pet active and healthy, Purepet is an economical diet that can be served as a whole meal, fulfilling all the nutrional needs of your pet"),
-                              ],
-                              onExpansionChanged: (value) {
-                                viewModel.onExpansionChanged(value);
-                              },
+                            Text(
+                              "Description:",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Palette.mainblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              desc,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Palette.mainblack,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              isAccessory ? "" : "Benefits:",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Palette.mainblack,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              isAccessory ? "" : benefits,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Palette.mainblack,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          height: 50,
-                          width: 200,
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      WidgetStatePropertyAll(Palette.blue3)),
-                              onPressed: () {
-                                viewModel.addtoCart();
-                              },
-                              child: Text(
-                                "Add to Cart",
-                                style: TextStyle(
-                                    color: Palette.mainWhite,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ))),
-                    ],
+                  Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 200,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(Palette.blue3)),
+                            onPressed: () async {
+                              // viewModel.addtoCart();
+
+                              viewModel.showOrderDialog(
+                                  context, name, url, price, "Order Placed", 1);
+                            },
+                            child: Text(
+                              "Add to Cart",
+                              style: TextStyle(
+                                  color: Palette.mainWhite,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ))),
                   )
                 ],
               ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Palette.mainWhite),
+                  color: Palette.third),
             ),
-          )),
+          ),
         );
       },
     );

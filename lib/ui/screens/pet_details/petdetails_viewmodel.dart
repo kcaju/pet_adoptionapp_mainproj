@@ -10,9 +10,16 @@ class PetdetailsViewmodel extends BaseViewModel {
 
   Future<void> isFav({
     required String petId,
-    String? url,
-    num? price,
-    String? petname,
+    required String url,
+    required String location,
+    required String sex,
+    required String color,
+    required String owner,
+    required String desc,
+    required num price,
+    required num age,
+    required String petname,
+    required String phone,
     BuildContext? context,
   }) async {
     // Check if the pet is already in the favorite list
@@ -25,6 +32,13 @@ class PetdetailsViewmodel extends BaseViewModel {
         'petname': petname,
         'image': url,
         'price': price,
+        'owner': owner,
+        'age': age,
+        'location': location,
+        'sex': sex,
+        'color': color,
+        'desc': desc,
+        'phone': phone,
       });
     }
     notifyListeners();

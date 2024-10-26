@@ -11,10 +11,15 @@ class HomeViewmodel extends BaseViewModel {
             color: petDetails['color'],
             owner: petDetails['owner'],
             desc: petDetails['desc'],
+            phone: petDetails['phone'],
             sex: petDetails['sex'],
             location: petDetails['location'],
             url: petDetails['url'],
             price: petDetails['price'],
             age: petDetails['age']));
+  }
+
+  toPetsCartScreen() {
+    navigationService.navigateTo(Routes.petscartView);
   }
 }

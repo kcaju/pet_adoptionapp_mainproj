@@ -2,24 +2,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
-import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_food/petfood_viewmodel.dart';
+import 'package:petadpotion_app/ui/screens/pet_supplies/tabs/pet_accessories/petaccessories_viewmodel.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 
-class PetfoodView extends StatelessWidget {
-  const PetfoodView({super.key});
+class PetaccessoriesView extends StatelessWidget {
+  const PetaccessoriesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var petFoods = FirebaseFirestore.instance.collection("Petfoods");
+    var petAccessory = FirebaseFirestore.instance.collection("Petssupplies");
 
-    return ViewModelBuilder<PetfoodViewmodel>.reactive(
+    return ViewModelBuilder<PetaccessoriesViewmodel>.reactive(
       viewModelBuilder: () {
-        return PetfoodViewmodel();
+        return PetaccessoriesViewmodel();
       },
       builder: (context, viewModel, child) {
         return StreamBuilder<QuerySnapshot>(
-          stream: petFoods.snapshots(),
+          stream: petAccessory.snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Text('Something went wrong');
@@ -48,7 +48,7 @@ class PetfoodView extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     viewModel.onTap(data['name'], data['url'], data['size'],
-                        data['desc'], data['benefits'], data['price'], false);
+                        data['desc'], data['benefits'], data['price'], true);
                   },
                   child: Container(
                     height: 280,

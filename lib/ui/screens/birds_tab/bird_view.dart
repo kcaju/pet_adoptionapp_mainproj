@@ -117,7 +117,7 @@ class BirdView extends StatelessWidget {
                                       color: Palette.mainblack,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
-                                )
+                                ),
                               ],
                             ),
                             decoration: BoxDecoration(

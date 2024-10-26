@@ -4,7 +4,19 @@ import 'package:stacked/stacked.dart';
 
 class FavouriteViewmodel extends BaseViewModel {
   //detlnscn
-  onTap() {
-    navigationService.navigateTo(Routes.petdetailsView);
+  onTap(Map<String, dynamic> petDetails, String petId) {
+    navigationService.navigateTo(Routes.petdetailsView,
+        arguments: PetdetailsViewArguments(
+            petId: petDetails['petId'],
+            name: petDetails['petname'],
+            color: petDetails['color'],
+            owner: petDetails['owner'],
+            desc: petDetails['desc'],
+            phone: petDetails['phone'],
+            sex: petDetails['sex'],
+            location: petDetails['location'],
+            url: petDetails['image'],
+            price: petDetails['price'],
+            age: petDetails['age']));
   }
 }

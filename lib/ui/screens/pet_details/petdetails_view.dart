@@ -4,6 +4,7 @@ import 'package:petadpotion_app/constants/app_colors.dart';
 import 'package:petadpotion_app/ui/screens/pet_details/petdetails_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PetdetailsView extends StatefulWidget {
   const PetdetailsView(
@@ -17,8 +18,9 @@ class PetdetailsView extends StatefulWidget {
       required this.url,
       required this.price,
       required this.age,
-      required this.petId});
-  final String name, color, owner, desc, sex, location, url;
+      required this.petId,
+      required this.phone});
+  final String name, color, owner, desc, sex, location, url, phone;
   final num price, age;
   final String petId;
 
@@ -73,27 +75,32 @@ class _PetdetailsViewState extends State<PetdetailsView> {
                           onTap: () {
                             viewModel.goBack();
                           },
-                          child: Icon(
-                            Icons.pets,
-                            size: 35,
-                            color: Palette.mainWhite,
+                          child: CircleAvatar(
+                            backgroundColor: Palette.mainblack,
+                            child: Icon(
+                              Icons.pets,
+                              size: 35,
+                              color: Palette.mainWhite,
+                            ),
                           ),
                         ),
                         InkWell(
                           onTap: () {
                             setState(() {
                               isSaved = !isSaved;
-                              // viewModel.isFav(
-                              //     petId: widget.petId,
-                              //     petname: widget.name,
-                              //     price: widget.price,
-                              //     url: widget.url);
                               if (isSaved) {
                                 context.read<PetdetailsViewmodel>().isFav(
                                     petId: widget.petId,
                                     petname: widget.name,
+                                    phone: widget.phone,
                                     price: widget.price,
                                     url: widget.url,
+                                    age: widget.age,
+                                    color: widget.color,
+                                    desc: widget.desc,
+                                    location: widget.location,
+                                    owner: widget.owner,
+                                    sex: widget.sex,
                                     context: context);
                               } else {
                                 context
@@ -307,9 +314,33 @@ class _PetdetailsViewState extends State<PetdetailsView> {
                                       ],
                                     ),
                                     Spacer(),
-                                    CircleAvatar(
-                                      child: Icon(
-                                        Icons.call,
+                                    InkWell(
+                                      onTap: () async {
+                                        //make a call
+                                        final Uri url = Uri(
+                                            scheme: 'tel', path: widget.phone);
+                                        if (await canLaunchUrl(url)) {
+                                          await launchUrl(url);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  backgroundColor:
+                                                      Palette.green1,
+                                                  content: Text(
+                                                    "Couldn't connect the call",
+                                                    style: TextStyle(
+                                                        color:
+                                                            Palette.mainblack,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18),
+                                                  )));
+                                        }
+                                      },
+                                      child: CircleAvatar(
+                                        child: Icon(
+                                          Icons.call,
+                                        ),
                                       ),
                                     )
                                   ],

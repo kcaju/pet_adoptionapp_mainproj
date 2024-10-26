@@ -15,6 +15,7 @@ class BirdlistViewmodel extends BaseViewModel {
             sex: birdDetails['sex'],
             location: birdDetails['location'],
             url: birdDetails['url'],
+            phone: birdDetails['phone'],
             price: birdDetails['price'],
             age: birdDetails['age']));
   }

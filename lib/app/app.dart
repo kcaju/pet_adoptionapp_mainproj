@@ -6,9 +6,10 @@ import 'package:petadpotion_app/ui/screens/confirm_adoption/confirmadoption_view
 import 'package:petadpotion_app/ui/screens/dogs_list/doglist_view.dart';
 import 'package:petadpotion_app/ui/screens/get_start/getstart_view.dart';
 import 'package:petadpotion_app/ui/screens/intermediate_screen/intermediate_view.dart';
-import 'package:petadpotion_app/ui/screens/login/login_view.dart';
 import 'package:petadpotion_app/ui/screens/on_boarding_screen/boardingscreen_view.dart';
+import 'package:petadpotion_app/ui/screens/order_details/orderdetails_view.dart';
 import 'package:petadpotion_app/ui/screens/pet_details/petdetails_view.dart';
+import 'package:petadpotion_app/ui/screens/pets_cart_screen/petscart_view.dart';
 import 'package:petadpotion_app/ui/screens/petsupplies_details/petsupplies_details_view.dart';
 import 'package:petadpotion_app/ui/screens/rabbit_list/rabbitlist_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -33,6 +34,8 @@ import '../ui/screens/splash/splash_view.dart';
     MaterialRoute(page: PetsuppliesDetailsView),
     MaterialRoute(page: ConfirmadoptionView),
     MaterialRoute(page: CartView),
+    MaterialRoute(page: PetscartView),
+    MaterialRoute(page: OrderdetailsView),
   ],
   dependencies: [
     LazySingleton(classType: ApiService),

@@ -12,6 +12,7 @@ class CatlistViewmodel extends BaseViewModel {
             color: catDetails['color'],
             owner: catDetails['owner'],
             desc: catDetails['desc'],
+            phone: catDetails['phone'],
             sex: catDetails['sex'],
             location: catDetails['location'],
             url: catDetails['url'],

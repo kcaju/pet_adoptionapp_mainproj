@@ -36,7 +36,9 @@ class HomeView extends StatelessWidget {
               actions: [
                 SizedBox(width: 10),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    viewModel.toPetsCartScreen();
+                  },
                   icon: Assets.images.cart.image(),
                 ),
                 SizedBox(width: 5)
@@ -112,6 +114,7 @@ class HomeView extends StatelessWidget {
                                             horizontal: 10, vertical: 5),
                                         child: Container(
                                           height: 250,
+                                          width: 400,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -130,6 +133,7 @@ class HomeView extends StatelessWidget {
                                                 highlightColor: Palette.grey,
                                                 child: Container(
                                                   height: 250,
+                                                  width: 400,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(

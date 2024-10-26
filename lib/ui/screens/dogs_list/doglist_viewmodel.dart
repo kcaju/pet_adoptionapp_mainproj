@@ -12,6 +12,7 @@ class DoglistViewmodel extends BaseViewModel {
             color: dogDetails['color'],
             owner: dogDetails['owner'],
             desc: dogDetails['desc'],
+            phone: dogDetails['phone'],
             sex: dogDetails['sex'],
             location: dogDetails['location'],
             url: dogDetails['url'],

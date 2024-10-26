@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
+import 'package:petadpotion_app/constants/assets.gen.dart';
 import 'package:petadpotion_app/ui/screens/bottomnav/bottomnav_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -30,16 +31,9 @@ class BottomnavView extends StatelessWidget {
               currentIndex: viewModel.selectedIndex,
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      size: 30,
-                    ),
-                    label: "Home"),
+                    icon: Assets.images.home.image(height: 35), label: "Home"),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.favorite,
-                      size: 30,
-                    ),
+                    icon: Assets.images.fav.image(height: 40),
                     label: "Favourites"),
                 // BottomNavigationBarItem(
                 //     icon: Icon(
@@ -47,16 +41,10 @@ class BottomnavView extends StatelessWidget {
                 //     ),
                 //     label: "chat"),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.medical_services,
-                      size: 30,
-                    ),
+                    icon: Assets.images.petfoods.image(height: 35),
                     label: "Pet Supplies"),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.people,
-                      size: 30,
-                    ),
+                    icon: Assets.images.profile.image(height: 35),
                     label: "Profile"),
               ]),
         );
