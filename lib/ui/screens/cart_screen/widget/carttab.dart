@@ -50,7 +50,8 @@ class Carttab extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        // overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         name,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
@@ -66,7 +67,7 @@ class Carttab extends StatelessWidget {
                           Text(
                             status,
                             style: TextStyle(
-                                color: Palette.blue5,
+                                color: Palette.brown,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
                           ),

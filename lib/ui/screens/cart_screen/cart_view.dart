@@ -12,7 +12,14 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     var suppliesOrderDetails =
         FirebaseFirestore.instance.collection("Suppliesorderdetails");
+
     return ViewModelBuilder<CartViewmodel>.reactive(
+      onViewModelReady: (viewModel) {
+        viewModel.init();
+      },
+      onDispose: (viewModel) {
+        viewModel.disPose();
+      },
       viewModelBuilder: () {
         return CartViewmodel();
       },
@@ -56,46 +63,35 @@ class CartView extends StatelessWidget {
                   // Extract documents into a list
                   final documents = snapshot.data!.docs;
 
+                  // // Calculate total amount
+                  // totalAmount = viewModel.calculateTotalAmount(documents);
+                  viewModel.updateTotalAmount(documents);
+
                   return Expanded(
                     child: ListView.separated(
                         physics: ScrollPhysics(),
                         itemBuilder: (context, index) {
                           Map<String, dynamic> data =
                               documents[index].data()! as Map<String, dynamic>;
-                          num itemPrice = data['price'];
+
                           num itemQty = data['quantity'];
                           return Carttab(
                             status: data['status'],
                             name: data['product'],
                             url: data['url'],
-                            price: itemPrice * itemQty,
+                            price: data['price'],
                             qty: itemQty,
-                            isIncrement: () {
-                              itemQty++;
-
-                              suppliesOrderDetails
-                                  .doc(documents[index].id)
-                                  .update({
-                                "quantity": itemQty,
-                                'price': data['price'] * itemQty
-                              });
+                            isIncrement: () async {
+                              await viewModel.incrementQuantity(
+                                  documents[index].id, itemQty);
                             },
-                            isDecrement: () {
-                              if (itemQty > 1) {
-                                itemQty--;
-
-                                suppliesOrderDetails
-                                    .doc(documents[index].id)
-                                    .update({
-                                  "quantity": itemQty,
-                                  'price': data['price'] * itemQty
-                                });
-                              }
+                            isDecrement: () async {
+                              await viewModel.decrementQuantity(
+                                  documents[index].id, itemQty);
                             },
                             removeCartItem: () async {
-                              await suppliesOrderDetails
-                                  .doc(documents[index].id)
-                                  .delete();
+                              await viewModel
+                                  .removeCartItem(documents[index].id);
                             },
                           );
                         },
@@ -124,7 +120,7 @@ class CartView extends StatelessWidget {
                                 fontSize: 22),
                           ),
                           Text(
-                            "Amount ₹",
+                            "${viewModel.totalAmount} ₹",
                             style: TextStyle(
                                 color: Palette.mainWhite,
                                 fontWeight: FontWeight.bold,
@@ -136,6 +132,7 @@ class CartView extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           // Start checkout process
+                          viewModel.checkout(viewModel.totalAmount);
                         },
                         child: Container(
                           padding: EdgeInsets.all(10),

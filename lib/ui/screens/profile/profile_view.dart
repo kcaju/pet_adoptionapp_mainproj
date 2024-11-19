@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
-import 'package:petadpotion_app/constants/assets.gen.dart';
+// import 'package:petadpotion_app/constants/assets.gen.dart';
 import 'package:petadpotion_app/ui/screens/profile/profile_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -44,19 +44,19 @@ class ProfileView extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: CircleAvatar(
-                    radius: 60,
-                    child: Assets.images.profile1.image(fit: BoxFit.cover),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: Palette.grey,
-                ),
+                // ClipRRect(
+                //   borderRadius: BorderRadius.circular(60),
+                //   child: CircleAvatar(
+                //     radius: 60,
+                //     child: Assets.images.profile1.image(fit: BoxFit.cover),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Divider(
+                //   color: Palette.grey,
+                // ),
                 ListTile(
                   leading: Icon(
                     Icons.settings,

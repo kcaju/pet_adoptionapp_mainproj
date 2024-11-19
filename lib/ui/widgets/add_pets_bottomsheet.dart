@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
@@ -169,190 +170,201 @@ class _AddPetsBottomsheetState extends State<AddPetsBottomsheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: CachedNetworkImageProvider(
+                  "https://img.freepik.com/premium-photo/kitten-selfie-cute-wallpaper-cartoon-animal-mammal_53876-337696.jpg?semt=ais_hybrid"))),
+      child: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Form(
-            key: formkey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Register your pet for sale.",
-                  style: TextStyle(
-                      color: Palette.mainblack,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
-                ),
-                CustomTextfield(data: "Pet's name", controller: petname),
-                Row(
-                  children: [
-                    Expanded(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Form(
+              key: formkey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Register your pet for sale.",
+                    style: TextStyle(
+                        color: Palette.mainblack,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  CustomTextfield(data: "Pet's name", controller: petname),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomTextfield(
+                              data: "Owner's name", controller: ownername)),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          child: CustomTextfield(
+                              isPhone: true,
+                              data: "Phone number",
+                              controller: phone)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DropdownButton(
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Palette.mainblack),
+                          dropdownColor: Palette.fourth,
+                          value: petCategory,
+                          hint: Text(
+                            "Pet Category",
+                            style: TextStyle(
+                                color: Palette.mainblack,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                          items: List.generate(
+                            selectCategory.length,
+                            (index) => DropdownMenuItem(
+                                value: selectCategory[index],
+                                child: Text(selectCategory[index])),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              petCategory = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: DropdownButton(
+                          alignment: Alignment.centerRight,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Palette.mainblack),
+                          dropdownColor: Palette.fourth,
+                          value: chooseBreed,
+                          hint: Text(
+                            "Breed",
+                            style: TextStyle(
+                                color: Palette.mainblack,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                          items: List.generate(
+                            selectBreed.length,
+                            (index) => DropdownMenuItem(
+                                value: selectBreed[index],
+                                child: Text(selectBreed[index])),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              chooseBreed = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child:
+                            CustomTextfield(data: "Price", controller: price),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child:
+                            CustomTextfield(data: "Color", controller: color),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: CustomTextfield(data: "Age", controller: age),
+                      ),
+                    ],
+                  ),
+                  CustomTextfield(data: "ImageUrl", controller: url),
+                  Row(
+                    children: [
+                      Expanded(
                         child: CustomTextfield(
-                            data: "Owner's name", controller: ownername)),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        child: CustomTextfield(
-                            isPhone: true,
-                            data: "Phone number",
-                            controller: phone)),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DropdownButton(
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Palette.mainblack),
-                        dropdownColor: Palette.fourth,
-                        value: petCategory,
-                        hint: Text(
-                          "Pet Category",
-                          style: TextStyle(
-                              color: Palette.mainblack,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18),
-                        ),
-                        items: List.generate(
-                          selectCategory.length,
-                          (index) => DropdownMenuItem(
-                              value: selectCategory[index],
-                              child: Text(selectCategory[index])),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            petCategory = value!;
-                          });
-                        },
+                            data: "Location", controller: location),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: DropdownButton(
-                        alignment: Alignment.centerRight,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Palette.mainblack),
-                        dropdownColor: Palette.fourth,
-                        value: chooseBreed,
-                        hint: Text(
-                          "Breed",
-                          style: TextStyle(
-                              color: Palette.mainblack,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18),
-                        ),
-                        items: List.generate(
-                          selectBreed.length,
-                          (index) => DropdownMenuItem(
-                              value: selectBreed[index],
-                              child: Text(selectBreed[index])),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            chooseBreed = value!;
-                          });
-                        },
+                      SizedBox(
+                        width: 20,
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextfield(data: "Price", controller: price),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: CustomTextfield(data: "Color", controller: color),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: CustomTextfield(data: "Age", controller: age),
-                    ),
-                  ],
-                ),
-                CustomTextfield(data: "ImageUrl", controller: url),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextfield(
-                          data: "Location", controller: location),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: DropdownButton(
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Palette.mainblack),
-                        dropdownColor: Palette.fourth,
-                        value: chooseSex,
-                        hint: Text(
-                          "Sex",
+                      Expanded(
+                        child: DropdownButton(
                           style: TextStyle(
-                              color: Palette.mainblack,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18),
+                              fontSize: 18,
+                              color: Palette.mainblack),
+                          dropdownColor: Palette.fourth,
+                          value: chooseSex,
+                          hint: Text(
+                            "Sex",
+                            style: TextStyle(
+                                color: Palette.mainblack,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                          items: List.generate(
+                            selectSex.length,
+                            (index) => DropdownMenuItem(
+                                value: selectSex[index],
+                                child: Text(selectSex[index])),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              chooseSex = value!;
+                            });
+                          },
                         ),
-                        items: List.generate(
-                          selectSex.length,
-                          (index) => DropdownMenuItem(
-                              value: selectSex[index],
-                              child: Text(selectSex[index])),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            chooseSex = value!;
-                          });
-                        },
                       ),
-                    ),
-                  ],
-                ),
-                CustomTextfield(
-                    maxlines: 5, data: "Description", controller: desc),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 200,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        _showConfirmationDialog();
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStatePropertyAll(Palette.mainblack)),
-                      child: Text(
-                        "Register",
-                        style: TextStyle(
-                            color: Palette.mainWhite,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20),
-                      )),
-                )
-              ],
+                    ],
+                  ),
+                  CustomTextfield(
+                      maxlines: 5, data: "Description", controller: desc),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    width: 200,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          _showConfirmationDialog();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStatePropertyAll(Palette.mainblack)),
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                              color: Palette.mainWhite,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
+                        )),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(
                 create: (context) => PetdetailsViewmodel(),
-              )
+              ),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

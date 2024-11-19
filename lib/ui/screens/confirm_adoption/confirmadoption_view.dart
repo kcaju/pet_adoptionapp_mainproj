@@ -40,7 +40,7 @@ class ConfirmadoptionView extends StatelessWidget {
                 )),
             centerTitle: true,
             title: Text(
-              "Here for You & Them",
+              "Confirm your Adoption",
               style: TextStyle(
                   color: Palette.mainWhite, fontWeight: FontWeight.bold),
             ),
@@ -82,6 +82,14 @@ class ConfirmadoptionView extends StatelessWidget {
                             color: Palette.mainblack,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Place your order :",
+                        style: TextStyle(
+                            color: Palette.mainblack,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700),
                       ),
                       SizedBox(height: 10),
                       CustomTextfield(
