@@ -160,7 +160,8 @@ class DoglistView extends StatelessWidget {
                                   as Map<String, dynamic>;
                           return InkWell(
                               onTap: () {
-                                viewModel.onTap(subData, dogData.id);
+                                viewModel.onTap(
+                                    subData, subCollectionDocuments[index].id);
                               },
                               child: DogTabView(
                                   name: subData['name'],

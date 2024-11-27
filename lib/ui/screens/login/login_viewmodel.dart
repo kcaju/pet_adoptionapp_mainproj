@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:petadpotion_app/app/app.router.dart';
 import 'package:petadpotion_app/app/utils.dart';
 import 'package:petadpotion_app/constants/app_colors.dart';
-
 import 'package:stacked/stacked.dart';
 
 class LoginViewmodel extends BaseViewModel {
@@ -21,6 +20,7 @@ class LoginViewmodel extends BaseViewModel {
       try {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: pass);
+
         if (credential.user?.uid != null) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Palette.green1,

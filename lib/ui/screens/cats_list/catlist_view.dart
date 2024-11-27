@@ -159,7 +159,8 @@ class CatlistView extends StatelessWidget {
                                   as Map<String, dynamic>;
                           return InkWell(
                               onTap: () {
-                                viewModel.onTap(subData, catData.id);
+                                viewModel.onTap(
+                                    subData, subCollectionDocuments[index].id);
                               },
                               child: CatTabView(
                                   name: subData['name'],

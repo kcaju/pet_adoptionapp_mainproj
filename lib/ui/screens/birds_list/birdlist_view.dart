@@ -170,7 +170,8 @@ class BirdlistView extends StatelessWidget {
                                   as Map<String, dynamic>;
                           return InkWell(
                               onTap: () {
-                                viewModel.onTap(subData, birdData.id);
+                                viewModel.onTap(
+                                    subData, subCollectionDocuments[index].id);
                               },
                               child: BirdTabView(
                                   name: subData['name'],
