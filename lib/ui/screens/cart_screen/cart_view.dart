@@ -64,7 +64,7 @@ class CartView extends StatelessWidget {
                   final documents = snapshot.data!.docs;
 
                   // // Calculate total amount
-                  // totalAmount = viewModel.calculateTotalAmount(documents);
+
                   viewModel.updateTotalAmount(documents);
 
                   return Expanded(

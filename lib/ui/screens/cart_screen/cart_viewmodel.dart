@@ -24,7 +24,6 @@ class CartViewmodel extends BaseViewModel {
         totalAmount += data['price'] * data['quantity'];
       }
     }
-    // notifyListeners();
   }
 
   Future<void> incrementQuantity(String documentId, num currentQty) async {
